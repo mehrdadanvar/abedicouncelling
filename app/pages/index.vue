@@ -10,7 +10,7 @@ useSeoMeta({
   description: 'You have within you the strength to heal. I’m here to offer compassionate guidance, standing with you every step of the way. With each step, we’ll uncover your strength and move toward a life of peace and renewed hope | North Vancouver',
   ogTitle: 'Aubade Counselling - aubade counselling | North Vancouver',
   ogDescription: 'You have within you the strength to heal. I’m here to offer compassionate guidance, standing with you every step of the way. With each step, we’ll uncover your strength and move toward a life of peace and renewed hope | North Vancouver',
-  ogImage: '/images/home-hero.jpg',
+  ogImage: '/images/home-hero.webp',
   twitterCard: 'summary_large_image'
 })
 </script>
@@ -35,7 +35,7 @@ useSeoMeta({
         </div>
         <div class="home-hero__media">
           <img
-            src="/images/home-hero.jpg"
+            src="/images/home-hero.webp"
             alt="Nazanin Zarei standing in a field with mountains behind her"
             width="854"
             height="1280"
@@ -76,7 +76,7 @@ useSeoMeta({
       <div class="home-about__row">
         <div class="home-about__media">
           <img
-            src="/images/home-about.jpg"
+            src="/images/home-about.webp"
             alt="Nazanin Zarei smiling in a field"
             width="510"
             height="783"

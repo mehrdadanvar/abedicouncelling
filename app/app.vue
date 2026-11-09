@@ -14,7 +14,7 @@ const businessSchema = {
   'url': 'https://aubadecounselling.com',
   'telephone': '+1-778-504-2135',
   'email': 'Info@aubadecounselling.com',
-  'image': 'https://aubadecounselling.com/images/home-hero.jpg',
+  'image': 'https://aubadecounselling.com/images/home-hero.webp',
   'logo': 'https://aubadecounselling.com/images/logo.svg',
   'address': {
     '@type': 'PostalAddress',
@@ -62,7 +62,7 @@ useSeoMeta({
   description,
   ogTitle: title,
   ogDescription: description,
-  ogImage: 'https://aubadecounselling.com/images/home-hero.jpg',
+  ogImage: 'https://aubadecounselling.com/images/home-hero.webp',
   ogType: 'website',
   ogUrl: canonical,
   twitterCard: 'summary_large_image'

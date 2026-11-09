@@ -73,7 +73,7 @@ export const services: Record<string, ServiceData> = {
     title: 'Couples Counselling',
     seoTitle: 'Couples Counselling - aubade counselling',
     description: 'Are you feeling lost in a cycle of tension, disconnect, and unresolved hurt, longing for a way back to each other? Feeling Stuck in Your Relationship? I',
-    heroImage: '/images/service-couples-1.jpg',
+    heroImage: '/images/service-couples-1.webp',
     heroImageAlt: 'A framed photograph of two baobab trees in a dry landscape',
     paragraphs: [
       'Are you feeling lost in a cycle of tension, disconnect, and unresolved hurt, longing for a way back to each other? Feeling Stuck in Your Relationship? I understand how difficult it is when your relationship feels stuck, leaving you alone and disconnected from the person you love most. The weight of it can feel overwhelming, like there’s no way forward. But here’s the truth:',
@@ -84,7 +84,7 @@ export const services: Record<string, ServiceData> = {
       {
         heading: 'How I Can Help',
         imageSide: 'right',
-        image: '/images/service-couples-2.jpg',
+        image: '/images/service-couples-2.webp',
         imageAlt: 'Ocean waves meeting a rocky shoreline',
         items: [
           {
@@ -116,7 +116,7 @@ export const services: Record<string, ServiceData> = {
       {
         heading: 'Together, We’ll Work Toward',
         imageSide: 'left',
-        image: '/images/service-couples-3.jpg',
+        image: '/images/service-couples-3.webp',
         imageAlt: 'A potted plant casting soft striped shadows on a warm wall',
         items: [
           {
@@ -181,7 +181,7 @@ export const services: Record<string, ServiceData> = {
     title: 'Individual Counselling',
     seoTitle: 'Individual Counselling - aubade counselling',
     description: 'In this moment, by being here, you’re choosing to listen to the part of yourself that longs for relief, understanding, and change. It’s not easy to take that',
-    heroImage: '/images/service-individual-1.jpg',
+    heroImage: '/images/service-individual-1.webp',
     heroImageAlt: 'A framed photograph of a lone tree and rock formation in golden light',
     paragraphs: [
       'In this moment, by being here, you’re choosing to listen to the part of yourself that longs for relief, understanding, and change. It’s not easy to take that step, to open the door to something new; but it shows a profound strength and self-awareness, even in the midst of struggle.',
@@ -190,7 +190,7 @@ export const services: Record<string, ServiceData> = {
     blocks: [
       {
         imageSide: 'right',
-        image: '/images/service-individual-2.jpg',
+        image: '/images/service-individual-2.webp',
         imageAlt: 'A softly lit couch with cushions and striped sunlight',
         items: [
           {
@@ -217,7 +217,7 @@ export const services: Record<string, ServiceData> = {
       },
       {
         imageSide: 'left',
-        image: '/images/service-individual-3.jpg',
+        image: '/images/service-individual-3.webp',
         imageAlt: 'A cactus with a bright orange flower in soft sunlight',
         items: [
           {
@@ -278,7 +278,7 @@ export const services: Record<string, ServiceData> = {
     title: 'Family Counselling',
     seoTitle: 'Family Therapy - aubade counselling',
     description: 'Do you find yourself longing for a way back to understanding and harmony, but unsure where to begin?',
-    heroImage: '/images/service-family-1.jpg',
+    heroImage: '/images/service-family-1.webp',
     heroImageAlt: 'A framed photograph of green cactus arms against a red wall and blue sky',
     paragraphs: [
       'Do you find yourself longing for a way back to understanding and harmony, but unsure where to begin?',
@@ -289,7 +289,7 @@ export const services: Record<string, ServiceData> = {
       {
         heading: 'Together, We’ll Focus On',
         imageSide: 'right',
-        image: '/images/service-family-2.jpg',
+        image: '/images/service-family-2.webp',
         imageAlt: 'Looking up through a canyon at a tree and blue sky',
         items: [
           {
@@ -313,7 +313,7 @@ export const services: Record<string, ServiceData> = {
       {
         heading: 'Your Family Can Heal and Thrive',
         imageSide: 'left',
-        image: '/images/service-family-3.jpg',
+        image: '/images/service-family-3.webp',
         imageAlt: 'A lemon tree beside a wooden ladder in a sunlit room',
         items: [
           {
@@ -369,7 +369,7 @@ export const services: Record<string, ServiceData> = {
     title: 'CVAP Counselling',
     seoTitle: 'CVAP Counselling - aubade counselling',
     description: 'Have You Been Affected by Violence or Trauma?',
-    heroImage: '/images/service-cvap-1.jpg',
+    heroImage: '/images/service-cvap-1.webp',
     heroImageAlt: 'A framed photograph of sunlight breaking over a mountain ridge',
     paragraphs: [
       'Have You Been Affected by Violence or Trauma?',
@@ -380,7 +380,7 @@ export const services: Record<string, ServiceData> = {
       {
         heading: 'How Counseling Can Help',
         imageSide: 'right',
-        image: '/images/service-cvap-2.jpg',
+        image: '/images/service-cvap-2.webp',
         imageAlt: 'A person sitting in a glowing canyon with a small fire',
         items: [
           {
@@ -407,7 +407,7 @@ export const services: Record<string, ServiceData> = {
       },
       {
         imageSide: 'left',
-        image: '/images/service-cvap-3.jpg',
+        image: '/images/service-cvap-3.webp',
         imageAlt: 'Colourful cactus flowers in soft green light',
         items: [
           {
@@ -456,7 +456,7 @@ export const services: Record<string, ServiceData> = {
     title: 'ICBC Counselling',
     seoTitle: 'ICBC Counselling - aubade counselling',
     description: 'Are You Struggling to Find Your Way After an Accident?',
-    heroImage: '/images/service-icbc-1.jpg',
+    heroImage: '/images/service-icbc-1.webp',
     heroImageAlt: 'A framed photograph of an empty road curving through green hills',
     paragraphs: [
       'Are You Struggling to Find Your Way After an Accident?',
@@ -467,7 +467,7 @@ export const services: Record<string, ServiceData> = {
       {
         heading: 'How ICBC Counseling Can Help',
         imageSide: 'right',
-        image: '/images/service-icbc-2.jpg',
+        image: '/images/service-icbc-2.webp',
         imageAlt: 'White daisies glowing in soft sunlight',
         items: [
           {
@@ -491,7 +491,7 @@ export const services: Record<string, ServiceData> = {
       {
         heading: 'What to Expect in ICBC Counseling Sessions',
         imageSide: 'left',
-        image: '/images/service-icbc-3.jpg',
+        image: '/images/service-icbc-3.webp',
         imageAlt: 'A winding road seen from above through autumn trees',
         items: [
           {

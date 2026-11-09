@@ -2,10 +2,10 @@
 import { site } from '~/data/site'
 
 const artColumns = [
-  [{ src: '/images/art-01.jpg', width: 960, height: 1280 }, { src: '/images/art-07.jpg', width: 764, height: 1065 }],
-  [{ src: '/images/art-02.jpg', width: 783, height: 1083 }, { src: '/images/art-08.jpg', width: 1013, height: 836 }, { src: '/images/art-09.jpg', width: 1228, height: 717 }],
-  [{ src: '/images/art-03.jpg', width: 822, height: 1072 }, { src: '/images/art-06.jpg', width: 912, height: 1062 }],
-  [{ src: '/images/art-04.jpg', width: 1191, height: 799 }, { src: '/images/art-05.jpg', width: 725, height: 1130 }]
+  [{ src: '/images/art-01.webp', width: 960, height: 1280 }, { src: '/images/art-07.webp', width: 764, height: 1065 }],
+  [{ src: '/images/art-02.webp', width: 783, height: 1083 }, { src: '/images/art-08.webp', width: 1013, height: 836 }, { src: '/images/art-09.webp', width: 1228, height: 717 }],
+  [{ src: '/images/art-03.webp', width: 822, height: 1072 }, { src: '/images/art-06.webp', width: 912, height: 1062 }],
+  [{ src: '/images/art-04.webp', width: 1191, height: 799 }, { src: '/images/art-05.webp', width: 725, height: 1130 }]
 ]
 
 const whyLeft = [
@@ -49,7 +49,7 @@ useSeoMeta({
   description: 'Hi, I’m Nazanin. My journey into the world of counseling began with my own life experiences. Like many of you, I’ve faced challenges—times of uncertainty,',
   ogTitle: 'About Us - aubade counselling',
   ogDescription: 'Hi, I’m Nazanin. My journey into the world of counseling began with my own life experiences. Like many of you, I’ve faced challenges—times of uncertainty,',
-  ogImage: '/images/about-hero.jpg',
+  ogImage: '/images/about-hero.webp',
   twitterCard: 'summary_large_image'
 })
 </script>
@@ -70,7 +70,7 @@ useSeoMeta({
         </div>
         <div class="about-hero__media">
           <img
-            src="/images/about-hero.jpg"
+            src="/images/about-hero.webp"
             alt="Nazanin Zarei sitting on a chair in a field"
             width="854"
             height="1280"
@@ -155,7 +155,7 @@ useSeoMeta({
       <div class="growing-section__row">
         <div class="growing-section__media">
           <img
-            src="/images/about-growing.jpg"
+            src="/images/about-growing.webp"
             alt="Nazanin Zarei standing in a field"
             width="854"
             height="1280"

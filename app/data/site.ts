@@ -22,7 +22,7 @@ export const homeServices = [
   {
     title: 'Individual Counselling',
     text: 'Your path to clarity, healing, and self-love.',
-    image: '/images/home-card-individual.jpg',
+    image: '/images/home-card-individual.webp',
     icon: '/images/icon-individual.png',
     to: '/individual-counselling',
     position: '50% 50%'
@@ -30,7 +30,7 @@ export const homeServices = [
   {
     title: 'Couples Counselling',
     text: 'Healing hearts and nurturing your bond.',
-    image: '/images/home-card-couples.jpg',
+    image: '/images/home-card-couples.webp',
     icon: '/images/icon-couples.png',
     to: '/couples-counselling',
     position: '50% 50%'
@@ -38,7 +38,7 @@ export const homeServices = [
   {
     title: 'Family Counselling',
     text: 'Building bridges to understanding and harmony.',
-    image: '/images/home-card-family.jpg',
+    image: '/images/home-card-family.webp',
     icon: '/images/icon-family.png',
     to: '/family-therapy',
     position: '50% 50%'
@@ -46,7 +46,7 @@ export const homeServices = [
   {
     title: 'CVAP Counselling',
     text: 'Supporting resilience and recovery, one step at a time.',
-    image: '/images/home-card-cvap.jpg',
+    image: '/images/home-card-cvap.webp',
     icon: '/images/icon-family.png',
     to: '/cvap-counselling',
     position: '50% 50%'
@@ -54,7 +54,7 @@ export const homeServices = [
   {
     title: 'ICBC Counselling',
     text: 'Support and recovery after life’s setbacks.',
-    image: '/images/home-card-icbc.jpg',
+    image: '/images/home-card-icbc.webp',
     icon: '/images/icon-family.png',
     to: '/icbc-counseling',
     position: '50% 50%'

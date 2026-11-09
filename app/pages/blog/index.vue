@@ -8,7 +8,7 @@ useSeoMeta({
   description: 'aubade counsellingAUBADE BLOG',
   ogTitle: 'Blog - aubade counselling',
   ogDescription: 'aubade counsellingAUBADE BLOG',
-  ogImage: '/images/blog-fearful.jpg',
+  ogImage: '/images/post-fearful.webp',
   twitterCard: 'summary_large_image'
 })
 </script>

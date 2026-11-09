@@ -48,4 +48,4 @@ All visual styling lives in `app/assets/css/main.css`. Nuxt UI is themed through
 
 ## Images
 
-All images from the original site are stored in `public/images` with descriptive names.
+All images from the original site are stored in `public/images` with descriptive names and converted to WebP (`cwebp -q 85`) to keep the static build small.

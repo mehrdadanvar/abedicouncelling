@@ -1,0 +1,13 @@
+<template>
+  <div
+    class="flower-row"
+    aria-hidden="true"
+  >
+    <img
+      src="/images/flower.svg"
+      alt=""
+      width="432"
+      height="115"
+    >
+  </div>
+</template>

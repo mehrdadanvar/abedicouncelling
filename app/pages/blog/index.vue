@@ -23,6 +23,8 @@ useSeoMeta({
   twitterCard: 'summary_large_image'
 })
 
+const totalPages = computed(() => Math.ceil((data.value?.total ?? 0) / articlesPerPage))
+
 function pageLink(value: number) {
   return value === 1 ? '/blog' : `/blog?page=${value}`
 }
@@ -52,8 +54,16 @@ function pageLink(value: number) {
         No articles have been published yet.
       </p>
 
+      <p
+        v-if="data?.articles.length"
+        class="blog-index__page-status"
+        aria-live="polite"
+      >
+        Page {{ page }} of {{ totalPages }}
+      </p>
+
       <UPagination
-        v-if="data && data.total > articlesPerPage"
+        v-if="data && totalPages > 1"
         as="nav"
         aria-label="Article pages"
         class="mt-6 flex justify-center"

@@ -1562,6 +1562,12 @@ button {
   align-self: start;
 }
 
+.blog-index__page-status {
+  color: var(--body-grey);
+  font-size: 14px;
+  text-align: center;
+}
+
 /* ------------------------------------------------------------------ */
 /* Blog post                                                           */
 /* ------------------------------------------------------------------ */

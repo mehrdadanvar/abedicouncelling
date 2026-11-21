@@ -15,7 +15,9 @@ export default defineEventHandler(async (event) => {
 
   const path = `/media/${name}`
   const published = await db.select({ id: articles.id }).from(articles)
-    .where(sql`json_extract(${articles.published}, '$.coverImage') = ${path}`).get()
+    .where(sql`json_extract(${articles.published}, '$.coverImage') = ${path} or exists (
+      select 1 from json_each(${articles.published}, '$.inlineImages') where value = ${path}
+    )`).get()
 
   if (!published) {
     const { user } = await getUserSession(event)

@@ -15,6 +15,13 @@
       "when": 1795240411517,
       "tag": "0001_article-revision",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1795242979417,
+      "tag": "0002_article-modified-at",
+      "breakpoints": true
     }
   ]
 }

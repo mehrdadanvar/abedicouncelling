@@ -3,6 +3,15 @@ definePageMeta({ layout: 'admin' })
 useSeoMeta({ title: 'Articles' })
 
 const route = useRoute()
+const localSignIn = import.meta.dev
+const email = ref('info@aubadecounselling.com')
+const password = ref('')
+const canSignIn = ref(false)
+const signingIn = ref(false)
+const loginError = ref('')
+onMounted(() => {
+  canSignIn.value = true
+})
 const { clear, fetch, ready, loggedIn } = useUserSession()
 if (!ready.value) {
   await fetch()
@@ -18,6 +27,24 @@ async function signOut() {
   clearNuxtData()
   await navigateTo('/admin', { external: true })
 }
+
+async function signInLocally() {
+  signingIn.value = true
+  loginError.value = ''
+  try {
+    await $fetch('/api/auth/local', {
+      method: 'POST',
+      headers: { 'x-cms-request': '1' },
+      body: { email: email.value, password: password.value }
+    })
+    await navigateTo('/admin', { external: true })
+  } catch {
+    loginError.value = 'Check the local email and password, then try again.'
+  } finally {
+    signingIn.value = false
+    password.value = ''
+  }
+}
 </script>
 
 <template>
@@ -29,7 +56,7 @@ async function signOut() {
       Sign in to manage articles
     </h1>
     <p class="mb-6 text-muted">
-      Use your Google account to open the article dashboard.
+      {{ localSignIn ? 'Use your local preview account to open the article dashboard.' : 'Use your Google account to open the article dashboard.' }}
     </p>
     <UAlert
       v-if="route.query['sign-in']"
@@ -38,11 +65,58 @@ async function signOut() {
       variant="soft"
       :title="route.query['sign-in'] === 'denied' ? 'This Google account does not have access.' : 'Google sign-in could not finish. Try again.'"
     />
+    <form
+      v-if="localSignIn"
+      class="space-y-4"
+      method="post"
+      @submit.prevent="signInLocally"
+    >
+      <UFormField
+        label="Email"
+        name="email"
+      >
+        <UInput
+          v-model="email"
+          type="email"
+          autocomplete="username"
+          class="w-full"
+          :disabled="!canSignIn"
+          required
+        />
+      </UFormField>
+      <UFormField
+        label="Password"
+        name="password"
+      >
+        <UInput
+          v-model="password"
+          type="password"
+          autocomplete="current-password"
+          class="w-full"
+          :disabled="!canSignIn"
+          required
+        />
+      </UFormField>
+      <UAlert
+        v-if="loginError"
+        color="error"
+        variant="soft"
+        :title="loginError"
+      />
+      <UButton
+        type="submit"
+        label="Sign in"
+        :disabled="!canSignIn"
+        :loading="signingIn"
+      />
+    </form>
     <UButton
       href="/auth/google"
       external
       icon="i-simple-icons-google"
       label="Sign in with Google"
+      :variant="localSignIn ? 'ghost' : 'solid'"
+      :class="{ 'mt-4': localSignIn }"
     />
   </section>
 

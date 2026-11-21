@@ -67,7 +67,11 @@ The importer adds missing slugs as published articles and copies the six bundled
 
 Article covers are served from `/media/`. New uploads and migrated covers use the same storage directory, so publishing with a new image takes effect without a rebuild. The original bundled files remain available as the source for the import.
 
-Save draft keeps edits private. Publish replaces the live article and updates the blog and sitemap. Choose an article slug before the first save.
+Save draft keeps edits and newly uploaded images private. Publish replaces the live article and updates the blog and sitemap. Choose an article slug before the first save. In the editor, type `/` to choose a block or use the toolbar to format text, edit links, and insert images. Published posts generate `BlogPosting` structured data from the article, author profile, and publication dates.
+
+### Local dashboard preview
+
+Use `LIBSQL_URL=file:.data/cms.sqlite` in your local `.env` so Nuxt opens the imported database. This workspace has a development login for `info@aubadecounselling.com`. Its generated password and hash are in `.data/local-editor-password.txt` and `.data/local-editor.hash`. Start the development app on loopback with `bun run dev --host localhost --port 3000` and sign in at `http://localhost:3000/admin`. Production uses Google sign-in.
 
 ### Coolify deployment
 

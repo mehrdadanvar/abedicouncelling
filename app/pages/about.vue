@@ -51,22 +51,7 @@ useSeoMeta({
   twitterCard: 'summary_large_image'
 })
 
-useSchemaOrg([definePerson({
-  '@id': 'https://aubadecounselling.com/#nazanin-zarei',
-  'name': 'Nazanin Zarei',
-  'jobTitle': 'Clinical Counsellor',
-  'url': 'https://aubadecounselling.com/about',
-  'image': 'https://aubadecounselling.com/images/about-hero.webp',
-  'worksFor': { '@id': 'https://aubadecounselling.com/#organization' },
-  'knowsAbout': [
-    'Emotion-Focused Therapy',
-    'S.A.F.E. EMDR',
-    'Somatic Therapy',
-    'Art Therapy',
-    'Gestalt therapy',
-    'Attachment theory'
-  ]
-})])
+useSchemaOrg([useCounsellorSchema()])
 </script>
 
 <template>

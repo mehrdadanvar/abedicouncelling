@@ -1,0 +1,1 @@
+ALTER TABLE `articles` ADD `modified_at` text;

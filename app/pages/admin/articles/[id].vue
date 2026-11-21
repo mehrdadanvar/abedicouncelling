@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { EditorToolbarItem } from '@nuxt/ui'
 import type { ArticleContent, EditorArticle } from '#shared/types/article'
 
 definePageMeta({ layout: 'admin', middleware: 'editor', key: route => route.path })
@@ -35,21 +34,6 @@ const savedContent = ref(JSON.stringify(content))
 const savedSlug = ref(slug.value)
 const dirty = computed(() => JSON.stringify(content) !== savedContent.value || slug.value !== savedSlug.value)
 
-const toolbar: EditorToolbarItem[][] = [
-  [
-    { kind: 'undo', icon: 'i-lucide-undo', tooltip: { text: 'Undo' } },
-    { kind: 'redo', icon: 'i-lucide-redo', tooltip: { text: 'Redo' } }
-  ],
-  [
-    { kind: 'heading', level: 2, icon: 'i-lucide-heading-2', tooltip: { text: 'Heading' } },
-    { kind: 'mark', mark: 'bold', icon: 'i-lucide-bold', tooltip: { text: 'Bold' } },
-    { kind: 'mark', mark: 'italic', icon: 'i-lucide-italic', tooltip: { text: 'Italic' } },
-    { kind: 'bulletList', icon: 'i-lucide-list', tooltip: { text: 'Bulleted list' } },
-    { kind: 'orderedList', icon: 'i-lucide-list-ordered', tooltip: { text: 'Numbered list' } },
-    { kind: 'link', icon: 'i-lucide-link', tooltip: { text: 'Link' } }
-  ]
-]
-
 if (route.query.saved === 'draft') feedback.value = 'Draft saved.'
 if (route.query.saved === 'publish') feedback.value = 'Article published.'
 
@@ -72,12 +56,8 @@ function messageFor(error: unknown, fallback: string) {
   return message && !['Bad Request', 'Internal Server Error', 'Validation Error'].includes(message) ? message : fallback
 }
 
-async function uploadImage(event: Event) {
-  const input = event.target as HTMLInputElement
-  const image = input.files?.[0]
-  if (!image) return
+async function storeImage(image: File) {
   uploading.value = true
-  issue.value = ''
   try {
     const body = new FormData()
     body.set('image', image)
@@ -86,12 +66,23 @@ async function uploadImage(event: Event) {
       headers: editorHeaders,
       body
     })
-    content.coverImage = result.path
+    return result.path
+  } finally {
+    uploading.value = false
+  }
+}
+
+async function uploadCoverImage(event: Event) {
+  const input = event.target as HTMLInputElement
+  const image = input.files?.[0]
+  if (!image) return
+  issue.value = ''
+  try {
+    content.coverImage = await storeImage(image)
     content.coverImageAlt = ''
   } catch (error) {
     issue.value = messageFor(error, 'The image could not be uploaded. Choose a JPEG, PNG, or WebP file under 8 MB.')
   } finally {
-    uploading.value = false
     input.value = ''
   }
 }
@@ -204,7 +195,7 @@ async function save(publish: boolean) {
       </div>
 
       <fieldset
-        class="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:items-start"
+        class="min-w-0 space-y-5"
         :disabled="Boolean(saving)"
       >
         <div class="min-w-0 space-y-5 rounded-lg border border-default bg-default p-4 sm:p-6">
@@ -240,26 +231,11 @@ async function save(publish: boolean) {
             >
               Article body
             </h2>
-            <UEditor
-              v-slot="{ editor }"
+            <AdminArticleEditor
               v-model="content.bodyHtml"
-              content-type="html"
-              :editable="!saving"
-              :image="false"
-              :mention="false"
-              :starter-kit="{ heading: { levels: [2, 3, 4] }, link: { openOnClick: false } }"
-              :editor-props="{ attributes: { 'aria-labelledby': 'article-body-label', 'aria-multiline': 'true', 'role': 'textbox' } }"
-              class="rounded-md border border-default"
-              :ui="{ content: 'min-h-80 px-4 py-3' }"
-              placeholder="Write your article…"
-            >
-              <UEditorToolbar
-                v-if="editor"
-                :editor="editor"
-                :items="toolbar"
-                class="flex-wrap border-b border-default p-2"
-              />
-            </UEditor>
+              :disabled="Boolean(saving)"
+              :upload-image="storeImage"
+            />
           </div>
           <UFormField
             label="Blog card excerpt"
@@ -273,13 +249,13 @@ async function save(publish: boolean) {
             />
           </UFormField>
         </div>
-        <div class="min-w-0 space-y-5 rounded-lg border border-default bg-default p-4 sm:p-6">
-          <div class="space-y-3">
+        <div class="grid min-w-0 gap-6 rounded-lg border border-default bg-default p-4 sm:p-6 lg:grid-cols-2">
+          <div class="min-w-0 space-y-3">
             <img
               v-if="content.coverImage"
               :src="content.coverImage"
               :alt="content.coverImageAlt"
-              class="aspect-video w-full rounded-md object-cover"
+              class="aspect-video w-full max-w-md rounded-md object-cover"
             >
             <UFormField
               label="Cover image"
@@ -291,7 +267,7 @@ async function save(publish: boolean) {
                 class="w-full"
                 accept="image/jpeg,image/png,image/webp"
                 :disabled="uploading"
-                @change="uploadImage"
+                @change="uploadCoverImage"
               />
             </UFormField>
             <p
@@ -323,7 +299,7 @@ async function save(publish: boolean) {
               @click="content.coverImage = ''; content.coverImageAlt = ''"
             />
           </div>
-          <div class="space-y-3 border-t border-default pt-4">
+          <div class="min-w-0 space-y-3">
             <h2 class="font-medium text-highlighted">
               Search appearance
             </h2>

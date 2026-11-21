@@ -1631,11 +1631,27 @@ button {
   line-height: 26px;
 }
 
-.post-body__inner ul {
+.post-body__inner ul,
+.post-body__inner ol {
   margin: 0 0 23px;
   padding-left: 20px;
   line-height: 26px;
   list-style: disc;
+}
+
+.post-body__inner ol {
+  list-style: decimal;
+}
+
+.post-body__inner blockquote {
+  margin: 0 0 20px;
+  border-inline-start: 3px solid var(--olive);
+  padding-inline-start: 20px;
+}
+
+.post-body__inner img,
+.post-body__inner hr {
+  margin-block: 24px;
 }
 
 .post-body__inner li {

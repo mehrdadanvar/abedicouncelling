@@ -2,6 +2,7 @@ import { db } from 'hub:db'
 import { and, count, desc, eq, isNotNull } from 'drizzle-orm'
 import { createError } from 'nuxt/server'
 import { articles } from '../db/schema'
+import type { StoredArticleContent } from '../db/schema'
 import { articlesPerPage } from '../../shared/types/article'
 import type { ArticleCard, ArticleContent, EditorArticle } from '../../shared/types/article'
 
@@ -53,6 +54,7 @@ export async function getPublishedArticle(slug: string) {
   const [row] = await db.select({
     slug: articles.slug,
     date: articles.publishedOn,
+    modifiedAt: articles.modifiedAt,
     content: articles.published
   }).from(articles).where(and(eq(articles.slug, slug), isNotNull(articles.publishedOn))).limit(1)
 
@@ -64,29 +66,37 @@ export async function getPublishedArticle(slug: string) {
     ...toArticleCard(row.slug, row.date, row.content),
     content: row.content.bodyHtml,
     seoTitle: row.content.seoTitle || row.content.title,
-    metaDescription: row.content.metaDescription || row.content.excerpt || row.content.summary
+    metaDescription: row.content.metaDescription || row.content.excerpt || row.content.summary,
+    modifiedAt: row.modifiedAt
   }
 }
 
 type ArticleRow = typeof articles.$inferSelect
 
 function toEditorArticle(row: ArticleRow): EditorArticle {
+  const snapshot = (row.draft ?? row.published)!
+  const content = { ...snapshot, bodyHtml: snapshot.bodyHtml.replace(legacyBookingBlock(snapshot.bodyHtml), '') }
+  delete content.inlineImages
   return {
     id: row.id,
     slug: row.slug,
     revision: row.revision,
     publishedOn: row.publishedOn,
     hasDraft: row.draft !== null,
-    content: (row.draft ?? row.published)!
+    content
   }
 }
 
-export async function getEditorArticle(id: number) {
+async function findArticle(id: number) {
   const row = await db.select().from(articles).where(eq(articles.id, id)).get()
   if (!row) {
     throw createError({ status: 404, statusText: 'Article not found' })
   }
-  return toEditorArticle(row)
+  return row
+}
+
+export async function getEditorArticle(id: number) {
+  return toEditorArticle(await findArticle(id))
 }
 
 export async function listEditorArticles() {
@@ -100,15 +110,19 @@ export async function listEditorArticles() {
   }))
 }
 
-function publicationFields(content: ArticleContent, publishedOn: string | null = null) {
+function publicationFields(content: StoredArticleContent, current?: ArticleRow) {
+  const booking = legacyBookingBlock(current?.published?.bodyHtml ?? '')
+  const published = booking ? { ...content, bodyHtml: `${content.bodyHtml}\n${booking}` } : content
+  const changed = current?.published && JSON.stringify(current.published) !== JSON.stringify(published)
   return {
     draft: null,
-    published: content,
-    publishedOn: publishedOn ?? publicationDate.format(new Date())
+    published,
+    publishedOn: current?.publishedOn ?? publicationDate.format(new Date()),
+    modifiedAt: changed ? new Date().toISOString() : current?.modifiedAt ?? null
   }
 }
 
-export async function createArticle(slug: string, content: ArticleContent, publish: boolean) {
+export async function createArticle(slug: string, content: StoredArticleContent, publish: boolean) {
   const row = await db.insert(articles).values({
     slug,
     ...(publish ? publicationFields(content) : { draft: content })
@@ -119,11 +133,11 @@ export async function createArticle(slug: string, content: ArticleContent, publi
   return toEditorArticle(row)
 }
 
-export async function updateArticle(id: number, revision: number, content: ArticleContent, publish: boolean) {
-  const current = await getEditorArticle(id)
+export async function updateArticle(id: number, revision: number, content: StoredArticleContent, publish: boolean) {
+  const current = await findArticle(id)
   const row = await db.update(articles).set({
     ...(publish
-      ? publicationFields(content, current.publishedOn)
+      ? publicationFields(content, current)
       : { draft: content }),
     revision: revision + 1
   }).where(and(eq(articles.id, id), eq(articles.revision, revision))).returning().get()

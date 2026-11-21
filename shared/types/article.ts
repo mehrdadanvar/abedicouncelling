@@ -26,6 +26,7 @@ export interface PublicArticle extends ArticleCard {
   content: string
   seoTitle: string
   metaDescription: string
+  modifiedAt: string | null
 }
 
 export interface EditorArticle {

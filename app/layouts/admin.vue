@@ -23,7 +23,7 @@ useSeoMeta({ robots: 'noindex, nofollow' })
       </UContainer>
     </header>
     <main>
-      <UContainer class="py-8 sm:py-12">
+      <UContainer class="max-w-none py-8 sm:px-8 sm:py-12 lg:px-12">
         <slot />
       </UContainer>
     </main>

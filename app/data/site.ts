@@ -5,17 +5,17 @@ export const site = {
   phoneHref: 'tel:7785042135',
   email: 'Info@aubadecounselling.com',
   emailHref: 'mailto:Info@aubadecounselling.com',
-  address: '#400 -145 Chadwick Court , North Vancouver , BC , V7M 3K1',
+  address: 'Suite 400, 145 Chadwick Court, North Vancouver, BC V7M 3K1',
   booking: 'https://aubadecounselling.janeapp.com/',
   bookingLabel: 'Book An Appointment'
 }
 
 export const navServices = [
   { label: 'Individual Counselling', to: '/individual-counselling' },
-  { label: 'Family Counselling', to: '/family-therapy' },
+  { label: 'Family Counselling', to: '/family-counselling' },
   { label: 'Couples Counselling', to: '/couples-counselling' },
   { label: 'CVAP Counselling', to: '/cvap-counselling' },
-  { label: 'ICBC Counselling', to: '/icbc-counseling' }
+  { label: 'ICBC Counselling', to: '/icbc-counselling' }
 ]
 
 export const homeServices = [
@@ -40,7 +40,7 @@ export const homeServices = [
     text: 'Building bridges to understanding and harmony.',
     image: '/images/home-card-family.webp',
     icon: '/images/icon-family.png',
-    to: '/family-therapy',
+    to: '/family-counselling',
     position: '50% 50%'
   },
   {
@@ -56,7 +56,7 @@ export const homeServices = [
     text: 'Support and recovery after life’s setbacks.',
     image: '/images/home-card-icbc.webp',
     icon: '/images/icon-family.png',
-    to: '/icbc-counseling',
+    to: '/icbc-counselling',
     position: '50% 50%'
   }
 ]
@@ -80,7 +80,7 @@ export const whyAubade = {
     },
     {
       title: 'Gentle but Powerful Discovery',
-      body: 'Through compassionate reflection and creative exploration, we’ll uncover the emotional patterns that have shaped your life. This isn’t just about talking—it’s about uncovering hidden strengths, healing old wounds, and finding new ways to move forward with intention.',
+      body: 'Through compassionate reflection and creative exploration, we’ll uncover the emotional patterns that have shaped your life. This isn’t just about talking. It’s about uncovering hidden strengths, healing old wounds, and finding new ways to move forward with intention.',
       tone: 'light' as const
     }
   ],
@@ -102,7 +102,7 @@ export const whyAubade = {
     },
     {
       title: 'Customized for You',
-      body: 'This process is uniquely yours, and I’ll be here to support and walk alongside you every step of the way—because your healing and growth are worth every moment of this journey.',
+      body: 'This process is uniquely yours, and I’ll be here to support and walk alongside you every step of the way, because your healing and growth are worth every moment of this journey.',
       tone: 'light' as const
     }
   ]

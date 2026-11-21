@@ -1,16 +1,31 @@
 <script setup lang="ts">
-import { posts } from '~/data/posts'
+import { articlesPerPage } from '#shared/types/article'
 
-const columns = [[posts[0]!, posts[3]!], [posts[1]!, posts[4]!], [posts[2]!, posts[5]!]]
+definePageMeta({ key: route => `/blog:${route.query.page ?? '1'}` })
 
+const route = useRoute()
+const page = Number(route.query.page ?? 1)
+if (!Number.isSafeInteger(page) || page < 1 || page > 1_000_000) {
+  throw createError({ statusCode: 404, statusMessage: 'Article page not found', fatal: true })
+}
+
+const { data, error } = await useFetch('/api/articles', { query: { page } })
+if (error.value) {
+  throw createError({ statusCode: error.value.statusCode, statusMessage: error.value.statusMessage, fatal: true })
+}
+
+const { url } = useSiteConfig()
+useHead({ link: [{ rel: 'canonical', href: new URL(page === 1 ? '/blog' : `/blog?page=${page}`, url).href }] })
 useSeoMeta({
-  title: 'Blog - aubade counselling',
-  description: 'aubade counsellingAUBADE BLOG',
-  ogTitle: 'Blog - aubade counselling',
-  ogDescription: 'aubade counsellingAUBADE BLOG',
-  ogImage: '/images/post-fearful.webp',
+  title: page === 1 ? 'Counselling Blog' : `Counselling Blog, Page ${page}`,
+  description: 'Articles on attachment, emotion regulation, trauma and healing by Nazanin Zarei, a counsellor in North Vancouver.',
+  ogImage: () => data.value?.articles[0]?.image || '/images/home-hero.webp',
   twitterCard: 'summary_large_image'
 })
+
+function pageLink(value: number) {
+  return value === 1 ? '/blog' : `/blog?page=${value}`
+}
 </script>
 
 <template>
@@ -20,30 +35,35 @@ useSeoMeta({
         <div class="eyebrow eyebrow--sarabun">
           AUBADE COUNSELLING
         </div>
-        <h2>AUBADE BLOG</h2>
+        <h1>AUBADE BLOG</h1>
       </div>
 
-      <div class="blog-index__grid blog-index__grid--desktop">
-        <div
-          v-for="(column, index) in columns"
-          :key="index"
-          class="blog-index__col"
-        >
-          <BlogCard
-            v-for="post in column"
-            :key="post.slug"
-            :post="post"
-          />
-        </div>
-      </div>
-
-      <div class="blog-index__list">
+      <div
+        v-if="data?.articles.length"
+        class="blog-index__grid"
+      >
         <BlogCard
-          v-for="post in posts"
-          :key="`mobile-${post.slug}`"
+          v-for="post in data.articles"
+          :key="post.slug"
           :post="post"
         />
       </div>
+      <p v-else>
+        No articles have been published yet.
+      </p>
+
+      <UPagination
+        v-if="data && data.total > articlesPerPage"
+        as="nav"
+        aria-label="Article pages"
+        class="mt-6 flex justify-center"
+        active-color="neutral"
+        active-variant="outline"
+        :page="page"
+        :total="data.total"
+        :items-per-page="articlesPerPage"
+        :to="pageLink"
+      />
     </div>
   </section>
 </template>

@@ -12,7 +12,7 @@ const whyLeft = [
   {
     title: 'Embracing Jungian Wisdom:',
     tone: 'green' as const,
-    body: 'Early in my career, I was drawn to Jungian psychotherapy. This approach—with its focus on archetypes, patterns, and the unconscious—felt like coming home to a deep well of understanding. Over two decades, I immersed myself in Jungian concepts, teaching others and using these tools to explore the stories and symbols that shape our lives. Jungian therapy provided a rich foundation for my work, helping me appreciate the depth of human experience. But as my own journey continued, I discovered another approach that expanded my perspective and opened new doors: Emotion-Focused Therapy (EFT).'
+    body: 'Early in my career, I was drawn to Jungian psychotherapy. This approach, with its focus on archetypes, patterns, and the unconscious, felt like coming home to a deep well of understanding. Over two decades, I immersed myself in Jungian concepts, teaching others and using these tools to explore the stories and symbols that shape our lives. Jungian therapy provided a rich foundation for my work, helping me appreciate the depth of human experience. But as my own journey continued, I discovered another approach that expanded my perspective and opened new doors: Emotion-Focused Therapy (EFT).'
   },
   {
     title: 'Discovering the Transformative Power of EFT',
@@ -22,7 +22,7 @@ const whyLeft = [
   {
     title: 'Commitment to Lifelong Learning',
     tone: 'light' as const,
-    body: 'Counseling is more than a career to me—it’s a lifelong journey of growth. I firmly believe there’s always more to learn, and I’m passionate about continuing my professional development. I’m currently on the path to becoming a certified Emotion-Focused Therapist and feel honored to be directly supervised by Dr. Leslie Greenberg, a pioneer in the field. Each training, each new approach I study, and each client I meet teaches me something new about this work. For me, therapy is not just a space for clients to grow—it’s also a place where I grow alongside them, learning with curiosity, excitement, and openness to what unfolds.'
+    body: 'Counseling is more than a career to me, it’s a lifelong journey of growth. I firmly believe there’s always more to learn, and I’m passionate about continuing my professional development. I’m currently on the path to becoming a certified Emotion-Focused Therapist and feel honored to be directly supervised by Dr. Leslie Greenberg, a pioneer in the field. Each training, each new approach I study, and each client I meet teaches me something new about this work. For me, therapy is not just a space for clients to grow, it’s also a place where I grow alongside them, learning with curiosity, excitement, and openness to what unfolds.'
   }
 ]
 
@@ -30,7 +30,7 @@ const whyRight = [
   {
     title: 'What Clients Say About Our Work Together',
     tone: 'peach' as const,
-    body: 'Clients often tell me that our sessions feel like talking to a trusted friend—someone who listens without judgment and truly understands. They describe the space we create as one of warmth, safety, and deep care. These reflections mean everything to me because they speak to the trust and connection we build together. Being part of someone’s journey is an incredible privilege, and every time a client feels supported and empowered, it reminds me why I love this work. Helping clients feel safe and understood is at the heart of everything I do.'
+    body: 'Clients often tell me that our sessions feel like talking to a trusted friend, someone who listens without judgment and truly understands. They describe the space we create as one of warmth, safety, and deep care. These reflections mean everything to me because they speak to the trust and connection we build together. Being part of someone’s journey is an incredible privilege, and every time a client feels supported and empowered, it reminds me why I love this work. Helping clients feel safe and understood is at the heart of everything I do.'
   },
   {
     title: 'Walking This Path Together',
@@ -40,18 +40,33 @@ const whyRight = [
   {
     title: 'Gentle but Powerful Discovery',
     tone: 'light' as const,
-    body: 'Through compassionate reflection and creative exploration, we’ll uncover the emotional patterns that have shaped your life. This isn’t just about talking—it’s about uncovering hidden strengths, healing old wounds, and finding new ways to move forward with intention.'
+    body: 'Through compassionate reflection and creative exploration, we’ll uncover the emotional patterns that have shaped your life. This isn’t just about talking. It’s about uncovering hidden strengths, healing old wounds, and finding new ways to move forward with intention.'
   }
 ]
 
 useSeoMeta({
-  title: 'About Us - aubade counselling',
-  description: 'Hi, I’m Nazanin. My journey into the world of counseling began with my own life experiences. Like many of you, I’ve faced challenges—times of uncertainty,',
-  ogTitle: 'About Us - aubade counselling',
-  ogDescription: 'Hi, I’m Nazanin. My journey into the world of counseling began with my own life experiences. Like many of you, I’ve faced challenges—times of uncertainty,',
+  title: 'About Nazanin Zarei',
+  description: 'Meet Nazanin Zarei, a North Vancouver counsellor with around a decade of mental health experience. Learn about her education, approach and journey.',
   ogImage: '/images/about-hero.webp',
   twitterCard: 'summary_large_image'
 })
+
+useSchemaOrg([definePerson({
+  '@id': 'https://aubadecounselling.com/#nazanin-zarei',
+  'name': 'Nazanin Zarei',
+  'jobTitle': 'Clinical Counsellor',
+  'url': 'https://aubadecounselling.com/about',
+  'image': 'https://aubadecounselling.com/images/about-hero.webp',
+  'worksFor': { '@id': 'https://aubadecounselling.com/#organization' },
+  'knowsAbout': [
+    'Emotion-Focused Therapy',
+    'S.A.F.E. EMDR',
+    'Somatic Therapy',
+    'Art Therapy',
+    'Gestalt therapy',
+    'Attachment theory'
+  ]
+})])
 </script>
 
 <template>
@@ -60,7 +75,7 @@ useSeoMeta({
       <div class="about-hero__row">
         <div class="about-hero__copy">
           <h1>I’m Nazanin Zarei</h1>
-          <p>Hi, I’m Nazanin. My journey into the world of counseling began with my own life experiences. Like many of you, I’ve faced challenges—times of uncertainty, pain, and searching for meaning. Those moments shaped me and taught me how much we all need connection and support to navigate life’s difficulties. They also planted the seed for my passion to help others. After earning my bachelor’s degree, I worked in diverse clinical and non-clinical settings with individuals from various walks of life.</p>
+          <p>Hi, I’m Nazanin. My journey into the world of counseling began with my own life experiences. Like many of you, I’ve faced challenges, times of uncertainty, pain, and searching for meaning. Those moments shaped me and taught me how much we all need connection and support to navigate life’s difficulties. They also planted the seed for my passion to help others. After earning my bachelor’s degree, I worked in diverse clinical and non-clinical settings with individuals from various walks of life.</p>
           <BaseButton
             :to="site.booking"
             variant="olive"
@@ -88,8 +103,8 @@ useSeoMeta({
           <div class="education-section__copy">
             <p><strong>Education:</strong></p>
             <ul>
-              <li>Master of Counseling Psychology and Art Therapy – Adler University</li>
-              <li>Bachelor of Psychology and Visual Arts – University of British Columbia</li>
+              <li>Master of Counseling Psychology and Art Therapy, Adler University</li>
+              <li>Bachelor of Psychology and Visual Arts, University of British Columbia</li>
             </ul>
             <p><strong>Trainings &amp; Memberships:</strong></p>
             <ul>
@@ -121,7 +136,7 @@ useSeoMeta({
         <h2>Finding Solace and Strength in Art</h2>
         <hr class="heading-rule">
         <p class="art-section__copy">
-          Art has always been an essential part of my life. During my toughest times, art became a refuge—a way to express feelings that words couldn’t capture. Whether I was painting, sketching, or creating, art gave me a safe space to process emotions and find healing. Those personal experiences showed me the profound power of creativity to transform pain into strength through art, helping me find clarity, comfort, and growth.
+          Art has always been an essential part of my life. During my toughest times, art became a refuge, a way to express feelings that words couldn’t capture. Whether I was painting, sketching, or creating, art gave me a safe space to process emotions and find healing. Those personal experiences showed me the profound power of creativity to transform pain into strength through art, helping me find clarity, comfort, and growth.
         </p>
 
         <div class="art-gallery">

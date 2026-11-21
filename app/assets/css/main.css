@@ -1537,7 +1537,7 @@ button {
   background: var(--cream) url('/images/bg-leaf-2.png') center / cover no-repeat;
 }
 
-.blog-index__head h2 {
+.blog-index__head h1 {
   margin-top: 12px;
   padding-bottom: 10px;
   color: var(--heading-soft);
@@ -1545,14 +1545,10 @@ button {
   line-height: 1.2;
 }
 
-.blog-index__list {
-  display: none;
-}
-
 .blog-index__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0 60px;
+  gap: 70px 60px;
   margin-top: 13px;
   padding-bottom: 30px;
   align-items: start;
@@ -1560,12 +1556,6 @@ button {
 
 .blog-index__head {
   margin-bottom: 41px;
-}
-
-.blog-index__col {
-  display: flex;
-  flex-direction: column;
-  gap: 70px;
 }
 
 .blog-index__grid .blog-card {
@@ -1917,7 +1907,7 @@ button {
   .home-services__head h2,
   .why-section__head h2,
   .how-section__head h2,
-  .blog-index__head h2 {
+  .blog-index__head h1 {
     font-size: clamp(38px, 4.4vw, 53px);
   }
 
@@ -2648,7 +2638,7 @@ button {
     padding: 40px 0 90px;
   }
 
-  .blog-index__head h2 {
+  .blog-index__head h1 {
     font-size: 38px;
   }
 
@@ -2897,18 +2887,6 @@ button {
   .about-hero__copy p {
     font-size: 18px;
     line-height: 27px;
-  }
-
-  .blog-index__grid--desktop {
-    display: none;
-  }
-
-  .blog-index__list {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    width: 100%;
-    padding-bottom: 30px;
   }
 
   .blog-card h2 {

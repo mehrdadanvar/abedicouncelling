@@ -6,7 +6,7 @@ const mobileOpen = ref(false)
 const servicesOpen = ref(false)
 
 const isHome = computed(() => route.path === '/')
-const isAbout = computed(() => route.path === '/nazanin-zarei')
+const isAbout = computed(() => route.path === '/about')
 const isBlog = computed(() => route.path.startsWith('/blog'))
 
 watch(
@@ -74,7 +74,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
           </div>
 
           <NuxtLink
-            to="/nazanin-zarei"
+            to="/about"
             class="site-nav__link"
             :class="{ 'is-active': isAbout }"
           >About Me</NuxtLink>
@@ -162,7 +162,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
           </NuxtLink>
         </div>
         <NuxtLink
-          to="/nazanin-zarei"
+          to="/about"
           :class="{ 'is-active': isAbout }"
         >About Me</NuxtLink>
         <NuxtLink

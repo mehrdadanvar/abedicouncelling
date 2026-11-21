@@ -1,17 +1,27 @@
 <script setup lang="ts">
-import type { BlogPost } from '~/data/posts'
+import type { PublicArticle } from '#shared/types/article'
 
-const props = defineProps<{ post: BlogPost }>()
+const props = defineProps<{ post: PublicArticle }>()
 
 useSeoMeta({
   title: props.post.seoTitle,
-  description: props.post.description,
-  ogTitle: props.post.seoTitle,
-  ogDescription: props.post.description,
+  description: props.post.metaDescription,
   ogImage: props.post.image,
   ogType: 'article',
+  articlePublishedTime: props.post.isoDate,
   twitterCard: 'summary_large_image'
 })
+
+useSchemaOrg([defineArticle({
+  '@type': 'BlogPosting',
+  'headline': props.post.title,
+  'description': props.post.metaDescription,
+  'image': props.post.image || undefined,
+  'datePublished': props.post.isoDate,
+  'author': { '@id': 'https://aubadecounselling.com/#nazanin-zarei' },
+  'publisher': { '@id': 'https://aubadecounselling.com/#organization' },
+  'inLanguage': 'en-CA'
+})])
 </script>
 
 <template>
@@ -25,6 +35,7 @@ useSeoMeta({
           </p>
         </div>
         <img
+          v-if="post.image"
           :src="post.image"
           :alt="post.imageAlt"
           class="post-hero__image"

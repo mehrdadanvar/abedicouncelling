@@ -7,12 +7,20 @@ const service = computed(() => services[props.slug]!)
 
 useSeoMeta({
   title: service.value.seoTitle,
-  description: service.value.description,
-  ogTitle: service.value.seoTitle,
-  ogDescription: service.value.description,
+  description: service.value.metaDescription,
   ogImage: service.value.heroImage,
   twitterCard: 'summary_large_image'
 })
+
+useSchemaOrg([defineService({
+  name: service.value.title,
+  description: service.value.metaDescription,
+  serviceType: service.value.title,
+  url: `https://aubadecounselling.com${service.value.path}`,
+  provider: { '@id': 'https://aubadecounselling.com/#organization' },
+  areaServed: 'North Vancouver, BC',
+  image: `https://aubadecounselling.com${service.value.heroImage}`
+})])
 </script>
 
 <template>

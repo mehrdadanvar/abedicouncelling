@@ -1,18 +1,19 @@
 <script setup lang="ts">
-import type { BlogPost } from '~/data/posts'
+import type { ArticleCard } from '#shared/types/article'
 
 defineProps<{
-  post: BlogPost
+  post: ArticleCard
 }>()
 </script>
 
 <template>
   <article class="blog-card">
     <NuxtLink
+      v-if="post.image"
       :to="post.path"
       class="blog-card__image-link"
       tabindex="-1"
-      aria-hidden="true"
+      :aria-label="post.title"
     >
       <img
         :src="post.image"

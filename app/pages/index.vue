@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { homeServices, howItWorks, site, testimonials, whyAubade } from '~/data/site'
-import { posts } from '~/data/posts'
+
+const { data: recentArticles } = await useFetch('/api/articles')
 
 const activeTestimonial = ref(0)
 const activeQuote = computed(() => testimonials[activeTestimonial.value]!.quote)
 
 useSeoMeta({
-  title: 'Aubade Counselling - aubade counselling | North Vancouver',
-  description: 'You have within you the strength to heal. I’m here to offer compassionate guidance, standing with you every step of the way. With each step, we’ll uncover your strength and move toward a life of peace and renewed hope | North Vancouver',
-  ogTitle: 'Aubade Counselling - aubade counselling | North Vancouver',
-  ogDescription: 'You have within you the strength to heal. I’m here to offer compassionate guidance, standing with you every step of the way. With each step, we’ll uncover your strength and move toward a life of peace and renewed hope | North Vancouver',
+  title: 'Counselling in North Vancouver with Nazanin Zarei',
+  description: 'Compassionate individual, couples and family counselling in North Vancouver with Nazanin Zarei. Book a consultation to begin your healing journey.',
   ogImage: '/images/home-hero.webp',
   twitterCard: 'summary_large_image'
 })
@@ -94,9 +93,9 @@ useSeoMeta({
           >
           <h2>I’m Nazanin Zarei</h2>
           <hr class="hero-rule">
-          <p>With around a decade of experience in the field of mental health, working across diverse clinical and non-clinical settings, my journey has been enriched by countless stories of resilience and transformation, each deepening my empthy and insight.<br>I offer therapy grounded in evidence based approaches and tools. My clients leave leave our sessions feel validated, supported and empowered. I invite you to take the first step on your healing journey . Don’t hesitate to reach out and schedule your free consultation with me today!</p>
+          <p>With around a decade of experience in the field of mental health, working across diverse clinical and non-clinical settings, my journey has been enriched by countless stories of resilience and transformation, each deepening my empathy and insight.<br>I offer therapy grounded in evidence-based approaches and tools. My clients leave our sessions feeling validated, supported and empowered. I invite you to take the first step on your healing journey. Don’t hesitate to reach out and schedule your free consultation with me today!</p>
           <BaseButton
-            to="/nazanin-zarei"
+            to="/about"
             variant="olive"
           >
             More About Nazanin
@@ -160,7 +159,7 @@ useSeoMeta({
       <h2>My Blog</h2>
       <div class="home-blog__grid">
         <BlogCard
-          v-for="post in posts.slice(0, 3)"
+          v-for="post in recentArticles?.articles.slice(0, 3)"
           :key="post.slug"
           :post="post"
         />

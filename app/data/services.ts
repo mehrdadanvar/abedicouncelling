@@ -28,6 +28,7 @@ export interface ServiceData {
   path: string
   title: string
   seoTitle: string
+  metaDescription: string
   description: string
   heroImage: string
   heroImageAlt: string
@@ -42,11 +43,11 @@ export interface ServiceData {
 export const approaches: Approach[] = [
   {
     title: 'Emotion-Focused Therapy',
-    body: 'In EFT, we uncover the emotional patterns that shape your behaviors—those that serve you and those that hold you back. By understanding and transforming maladaptive emotions, you can break free from unhelpful cycles, respond with more balance, and build deeper, more meaningful connections with yourself and others.'
+    body: 'In EFT, we uncover the emotional patterns that shape your behaviors, those that serve you and those that hold you back. By understanding and transforming maladaptive emotions, you can break free from unhelpful cycles, respond with more balance, and build deeper, more meaningful connections with yourself and others.'
   },
   {
     title: 'S.A.F.E. EMDR',
-    body: 'Somatic & Attachment Focused  EMDR is a trauma-informed approach that supports healing from complex trauma by combining EMDR with somatic awareness, attachment theory, and nervous system regulation. It helps you process overwhelming memories in a safe, connected space—making it easier to feel grounded, present, and whole.'
+    body: 'Somatic & Attachment Focused  EMDR is a trauma-informed approach that supports healing from complex trauma by combining EMDR with somatic awareness, attachment theory, and nervous system regulation. It helps you process overwhelming memories in a safe, connected space, making it easier to feel grounded, present, and whole.'
   },
   {
     title: 'Somatic Therapy',
@@ -71,8 +72,9 @@ export const services: Record<string, ServiceData> = {
     slug: 'couples',
     path: '/couples-counselling',
     title: 'Couples Counselling',
-    seoTitle: 'Couples Counselling - aubade counselling',
+    seoTitle: 'Couples Counselling in North Vancouver',
     description: 'Are you feeling lost in a cycle of tension, disconnect, and unresolved hurt, longing for a way back to each other? Feeling Stuck in Your Relationship? I',
+    metaDescription: 'Couples counselling in North Vancouver to rebuild trust, ease conflict and reconnect emotionally. Start your healing together with Nazanin Zarei.',
     heroImage: '/images/service-couples-1.webp',
     heroImageAlt: 'A framed photograph of two baobab trees in a dry landscape',
     paragraphs: [
@@ -150,7 +152,7 @@ export const services: Record<string, ServiceData> = {
     faq: {
       eyebrow: 'AUBADE COUNSELLING',
       title: 'Frequently Asked questions about Couples Counselling:',
-      body: 'Taking the first step toward therapy is like planting a seed for change—an opportunity to nurture growth, healing, and a deeper connection with yourself. If you’re ready, I’m here to support you in this empowering journey.',
+      body: 'Taking the first step toward therapy is like planting a seed for change, an opportunity to nurture growth, healing, and a deeper connection with yourself. If you’re ready, I’m here to support you in this empowering journey.',
       items: [
         {
           title: 'Will couples therapy work if one of us isn’t fully invested?',
@@ -179,8 +181,9 @@ export const services: Record<string, ServiceData> = {
     slug: 'individual',
     path: '/individual-counselling',
     title: 'Individual Counselling',
-    seoTitle: 'Individual Counselling - aubade counselling',
+    seoTitle: 'Individual Counselling in North Vancouver',
     description: 'In this moment, by being here, you’re choosing to listen to the part of yourself that longs for relief, understanding, and change. It’s not easy to take that',
+    metaDescription: 'Individual counselling in North Vancouver for trauma, anxiety, depression, anger and self-image. Compassionate, evidence-based support with Nazanin Zarei.',
     heroImage: '/images/service-individual-1.webp',
     heroImageAlt: 'A framed photograph of a lone tree and rock formation in golden light',
     paragraphs: [
@@ -247,7 +250,7 @@ export const services: Record<string, ServiceData> = {
     faq: {
       eyebrow: 'AUBADE COUNSELLING',
       title: 'How to start Therapy :',
-      body: 'Taking the first step toward therapy is like planting a seed for change—an opportunity to nurture growth, healing, and a deeper connection with yourself. If you’re ready, I’m here to support you in this empowering journey.',
+      body: 'Taking the first step toward therapy is like planting a seed for change, an opportunity to nurture growth, healing, and a deeper connection with yourself. If you’re ready, I’m here to support you in this empowering journey.',
       items: [
         {
           title: 'Reach Out',
@@ -263,7 +266,7 @@ export const services: Record<string, ServiceData> = {
         },
         {
           title: 'Start The Therapeutic Work',
-          body: 'After our consultation, if we decide to move forward, we’ll schedule your first therapy session. This is where the real work begins—setting the stage for healing, self-discovery, and growth.'
+          body: 'After our consultation, if we decide to move forward, we’ll schedule your first therapy session. This is where the real work begins: setting the stage for healing, self-discovery, and growth.'
         },
         {
           title: 'Embrace your Healing Journey',
@@ -274,15 +277,16 @@ export const services: Record<string, ServiceData> = {
   },
   family: {
     slug: 'family',
-    path: '/family-therapy',
+    path: '/family-counselling',
     title: 'Family Counselling',
-    seoTitle: 'Family Therapy - aubade counselling',
+    seoTitle: 'Family Counselling in North Vancouver',
     description: 'Do you find yourself longing for a way back to understanding and harmony, but unsure where to begin?',
+    metaDescription: 'Family counselling in North Vancouver for strained relationships, unresolved conflict and distance between loved ones. Rebuild understanding and harmony.',
     heroImage: '/images/service-family-1.webp',
     heroImageAlt: 'A framed photograph of green cactus arms against a red wall and blue sky',
     paragraphs: [
       'Do you find yourself longing for a way back to understanding and harmony, but unsure where to begin?',
-      'When family relationships become strained, the impact can ripple through every part of your life. Arguments linger in the air, silences grow heavier, and the distance between loved ones feels impossible to bridge. You might find yourself replaying conversations in your mind, wondering how things got to this point, and wishing you could fix it—but not knowing how.',
+      'When family relationships become strained, the impact can ripple through every part of your life. Arguments linger in the air, silences grow heavier, and the distance between loved ones feels impossible to bridge. You might find yourself replaying conversations in your mind, wondering how things got to this point, and wishing you could fix it, but not knowing how.',
       'It’s a heartbreaking place to be.'
     ],
     blocks: [
@@ -367,8 +371,9 @@ export const services: Record<string, ServiceData> = {
     slug: 'cvap',
     path: '/cvap-counselling',
     title: 'CVAP Counselling',
-    seoTitle: 'CVAP Counselling - aubade counselling',
+    seoTitle: 'CVAP Counselling in North Vancouver',
     description: 'Have You Been Affected by Violence or Trauma?',
+    metaDescription: 'Counselling for survivors of violence and trauma in North Vancouver, supported through the BC Crime Victim Assistance Program. Heal at your own pace.',
     heroImage: '/images/service-cvap-1.webp',
     heroImageAlt: 'A framed photograph of sunlight breaking over a mountain ridge',
     paragraphs: [
@@ -452,15 +457,16 @@ export const services: Record<string, ServiceData> = {
   },
   icbc: {
     slug: 'icbc',
-    path: '/icbc-counseling',
+    path: '/icbc-counselling',
     title: 'ICBC Counselling',
-    seoTitle: 'ICBC Counselling - aubade counselling',
+    seoTitle: 'ICBC Counselling in North Vancouver',
     description: 'Are You Struggling to Find Your Way After an Accident?',
+    metaDescription: 'Counselling after a motor vehicle accident in North Vancouver, for anxiety, trauma and stress. Pre-authorized ICBC sessions may be covered.',
     heroImage: '/images/service-icbc-1.webp',
     heroImageAlt: 'A framed photograph of an empty road curving through green hills',
     paragraphs: [
       'Are You Struggling to Find Your Way After an Accident?',
-      'In the aftermath of an accident, life can feel overwhelming. You might find yourself grappling with a combination of physical pain, emotional distress, and uncertainty about the future. The ripple effects can touch every corner of your life, making even simple tasks feel insurmountable. Perhaps you feel stuck, alone, and unsure how to move forward. If you’ve found your way here, it’s because you’re searching for relief, support, and a way to reclaim your life—and that is a powerful and courageous step.',
+      'In the aftermath of an accident, life can feel overwhelming. You might find yourself grappling with a combination of physical pain, emotional distress, and uncertainty about the future. The ripple effects can touch every corner of your life, making even simple tasks feel insurmountable. Perhaps you feel stuck, alone, and unsure how to move forward. If you’ve found your way here, it’s because you’re searching for relief, support, and a way to reclaim your life, and that is a powerful and courageous step.',
       'Whatever you’re experiencing right now, please know this: healing is possible, and you don’t have to face this journey alone. I’m here to provide a compassionate, understanding space where you can begin to process, recover, and rebuild.'
     ],
     blocks: [
@@ -517,7 +523,7 @@ export const services: Record<string, ServiceData> = {
     faq: {
       eyebrow: 'AUBADE COUNSELLING',
       title: 'Frequently Asked Questions About ICBC Counseling',
-      body: 'Taking the first step toward therapy is like planting a seed for change—an opportunity to nurture growth, healing, and a deeper connection with yourself. If you’re ready, I’m here to support you in this empowering journey.',
+      body: 'Taking the first step toward therapy is like planting a seed for change, an opportunity to nurture growth, healing, and a deeper connection with yourself. If you’re ready, I’m here to support you in this empowering journey.',
       items: [
         {
           title: 'What is ICBC counseling?',

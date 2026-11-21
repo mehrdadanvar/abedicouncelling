@@ -3,7 +3,7 @@ import { site } from '~/data/site'
 
 const route = useRoute()
 const isHome = computed(() => route.path === '/')
-const isAbout = computed(() => route.path === '/nazanin-zarei')
+const isAbout = computed(() => route.path === '/about')
 </script>
 
 <template>
@@ -27,7 +27,7 @@ const isAbout = computed(() => route.path === '/nazanin-zarei')
     </NuxtLink>
 
     <NuxtLink
-      to="/nazanin-zarei"
+      to="/about"
       class="mobile-bottom-nav__link"
       :class="{ 'is-active': isAbout }"
       aria-label="About Nazanin Zarei"

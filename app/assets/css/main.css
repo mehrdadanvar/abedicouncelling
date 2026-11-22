@@ -234,15 +234,24 @@ button {
 }
 
 .site-nav {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: center;
+  flex: 1 1 auto;
   height: 100%;
 }
 
 .site-nav__group {
   display: flex;
   align-items: center;
+}
+
+.site-nav__group:first-child {
+  justify-content: flex-start;
+}
+
+.site-nav__group:last-child {
+  justify-content: flex-end;
 }
 
 .site-nav__link {
@@ -266,11 +275,18 @@ button {
   padding-right: 0;
 }
 
-.site-nav__logo-space {
-  width: 73px;
+.site-nav__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-column: 2;
   height: 68px;
-  margin: 0 12px 0 0;
-  flex: none;
+}
+
+.site-nav__logo img {
+  width: 67px;
+  height: 60px;
+  object-fit: contain;
 }
 
 .site-nav__item {
@@ -688,29 +704,53 @@ button {
   margin-top: 20px;
 }
 
-.testimonial-slider__dots {
+.testimonial-slider__nav {
   position: absolute;
   bottom: 26px;
   left: 50%;
   display: flex;
-  gap: 10px;
+  gap: 14px;
   transform: translateX(-50%);
 }
 
-.testimonial-slider__dot {
-  width: 7px;
-  height: 7px;
+.testimonial-slider__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
   padding: 0;
-  border: 0;
+  border: 1px solid var(--cream);
   border-radius: 50%;
-  background: var(--ink);
-  opacity: 0.85;
-  transition: background-color 0.2s ease, opacity 0.2s ease;
+  background: transparent;
+  color: var(--cream);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
 }
 
-.testimonial-slider__dot.is-active {
-  background: var(--ink);
-  opacity: 1;
+.testimonial-slider__arrow .testimonial-slider__arrow-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.testimonial-slider__arrow-icon {
+  color: currentColor;
+}
+
+.testimonial-slider__arrow:hover,
+.testimonial-slider__arrow:focus-visible {
+  background: var(--cream);
+  color: var(--olive);
+}
+
+.testimonial-slider__arrow:focus-visible {
+  outline: 2px solid var(--cream);
+  outline-offset: 2px;
+}
+
+.testimonial-slider__arrow:active {
+  opacity: 0.85;
 }
 
 /* ------------------------------------------------------------------ */

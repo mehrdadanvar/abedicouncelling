@@ -80,10 +80,18 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
           >About Me</NuxtLink>
         </div>
 
-        <div
-          class="site-nav__logo-space"
-          aria-hidden="true"
-        />
+        <NuxtLink
+          to="/"
+          class="site-nav__logo"
+          aria-label="Aubade Counselling home"
+        >
+          <img
+            src="/images/logo-light.svg"
+            alt="Aubade Counselling"
+            width="67"
+            height="60"
+          >
+        </NuxtLink>
 
         <div class="site-nav__group">
           <NuxtLink

@@ -6,6 +6,14 @@ const { data: recentArticles } = await useFetch('/api/articles')
 const activeTestimonial = ref(0)
 const activeQuote = computed(() => testimonials[activeTestimonial.value]!.quote)
 
+function prevTestimonial() {
+  activeTestimonial.value = (activeTestimonial.value - 1 + testimonials.length) % testimonials.length
+}
+
+function nextTestimonial() {
+  activeTestimonial.value = (activeTestimonial.value + 1) % testimonials.length
+}
+
 useSeoMeta({
   title: 'Counselling in North Vancouver with Nazanin Zarei',
   description: 'Compassionate individual, couples and family counselling in North Vancouver with Nazanin Zarei. Book a consultation to begin your healing journey.',
@@ -106,6 +114,12 @@ useSeoMeta({
 
     <section class="testimonial-section">
       <div class="testimonial-slider">
+        <p
+          class="sr-only"
+          aria-live="polite"
+        >
+          Testimonial {{ activeTestimonial + 1 }} of {{ testimonials.length }}: {{ activeQuote }}
+        </p>
         <div class="testimonial-slider__quote">
           <p>{{ activeQuote }}</p>
         </div>
@@ -116,19 +130,34 @@ useSeoMeta({
           Book An Appointment
         </BaseButton>
         <div
-          class="testimonial-slider__dots"
-          aria-label="Testimonials"
+          class="testimonial-slider__nav"
+          role="group"
+          aria-label="Testimonial navigation"
         >
           <button
-            v-for="(_, index) in testimonials"
-            :key="index"
             type="button"
-            class="testimonial-slider__dot"
-            :class="{ 'is-active': activeTestimonial === index }"
-            :aria-label="`Testimonial ${index + 1}`"
-            :aria-pressed="activeTestimonial === index"
-            @click="activeTestimonial = index"
-          />
+            class="testimonial-slider__arrow"
+            aria-label="Previous testimonial"
+            @click="prevTestimonial"
+          >
+            <UIcon
+              name="i-lucide-chevron-left"
+              class="testimonial-slider__arrow-icon"
+              aria-hidden="true"
+            />
+          </button>
+          <button
+            type="button"
+            class="testimonial-slider__arrow"
+            aria-label="Next testimonial"
+            @click="nextTestimonial"
+          >
+            <UIcon
+              name="i-lucide-chevron-right"
+              class="testimonial-slider__arrow-icon"
+              aria-hidden="true"
+            />
+          </button>
         </div>
       </div>
     </section>

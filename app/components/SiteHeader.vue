@@ -97,10 +97,10 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
           >Contact Us</NuxtLink>
           <a
             :href="site.booking"
-            class="site-nav__link"
+            class="site-nav__cta"
             target="_blank"
             rel="noopener"
-          >Appointment</a>
+          >Book an Appointment</a>
         </div>
       </nav>
     </div>
@@ -119,24 +119,39 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
         >
       </NuxtLink>
 
-      <button
-        type="button"
-        class="mobile-header__bar"
-        :class="{ 'is-open': mobileOpen }"
-        :aria-expanded="mobileOpen"
-        aria-controls="mobile-menu"
-        @click="mobileOpen = !mobileOpen"
-      >
-        <span>Select Page</span>
-        <span
-          class="mobile-header__hamburger"
-          aria-hidden="true"
+      <div class="mobile-header__row">
+        <button
+          type="button"
+          class="mobile-header__bar"
+          :class="{ 'is-open': mobileOpen }"
+          :aria-expanded="mobileOpen"
+          aria-controls="mobile-menu"
+          @click="mobileOpen = !mobileOpen"
         >
-          <span />
-          <span />
-          <span />
-        </span>
-      </button>
+          <span>Select Page</span>
+          <span
+            class="mobile-header__hamburger"
+            aria-hidden="true"
+          >
+            <span />
+            <span />
+            <span />
+          </span>
+        </button>
+
+        <a
+          :href="site.booking"
+          class="mobile-header__cta"
+          target="_blank"
+          rel="noopener"
+        >
+          <UIcon
+            name="i-lucide-calendar-check-2"
+            aria-hidden="true"
+          />
+          Book
+        </a>
+      </div>
 
       <nav
         v-show="mobileOpen"
@@ -170,11 +185,6 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
           :class="{ 'is-active': isBlog }"
         >Blog</NuxtLink>
         <NuxtLink to="/#contact">Contact Us</NuxtLink>
-        <a
-          :href="site.booking"
-          target="_blank"
-          rel="noopener"
-        >Appointment</a>
       </nav>
     </div>
   </header>

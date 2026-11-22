@@ -16,7 +16,6 @@ useHead({
       <slot />
     </main>
     <SiteFooter />
-    <FloatingBook />
     <MobileBottomNav />
   </div>
 </template>

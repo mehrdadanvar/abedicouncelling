@@ -336,36 +336,34 @@ button {
   color: #223f0a;
 }
 
+.site-nav__cta {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 22px;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: var(--peach);
+  color: #223f0a;
+  font-family: var(--font-open);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.site-nav__cta:hover {
+  background: #e5b9a3;
+  transform: translateY(-1px);
+}
+
 .mobile-header {
   display: none;
 }
 
 /* ------------------------------------------------------------------ */
-/* Floating + mobile bottom nav                                        */
+/* Mobile bottom nav                                                   */
 /* ------------------------------------------------------------------ */
-
-.floating-book {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  z-index: 10000;
-  margin: 75px 0;
-  transform-origin: right bottom;
-  transform: rotate(90deg) translateY(100%);
-}
-
-.floating-book a {
-  display: block;
-  padding: 6px 25px;
-  border-radius: 0 0 8px 8px;
-  background: var(--olive);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  color: #000;
-  font-family: var(--font-open);
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.32;
-}
 
 .mobile-bottom-nav {
   display: none;
@@ -2174,13 +2172,21 @@ button {
     object-fit: contain;
   }
 
+  .mobile-header__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: calc(100% - 78px);
+    margin: 20px auto 0;
+  }
+
   .mobile-header__bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: calc(100% - 78px);
+    flex: 1 1 auto;
+    min-width: 0;
     height: 32px;
-    margin: 20px auto 0;
     padding: 0 12px;
     border: 0;
     background: rgba(0, 0, 0, 0.08);
@@ -2189,6 +2195,22 @@ button {
     font-size: 16px;
     font-weight: 600;
     text-align: left;
+  }
+
+  .mobile-header__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex: none;
+    height: 32px;
+    padding: 0 13px;
+    border-radius: 100px;
+    background: var(--peach);
+    color: #223f0a;
+    font-family: var(--font-open);
+    font-size: 14px;
+    font-weight: 700;
   }
 
   .mobile-header__hamburger {
@@ -2281,10 +2303,6 @@ button {
 }
 
 @media (max-width: 767px) {
-  .floating-book {
-    display: none;
-  }
-
   body {
     padding-bottom: calc(94px + env(safe-area-inset-bottom, 0px));
   }

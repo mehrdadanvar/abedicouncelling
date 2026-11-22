@@ -22,6 +22,13 @@
       "when": 1795242979417,
       "tag": "0002_article-modified-at",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1795327020087,
+      "tag": "0003_analytics-events",
+      "breakpoints": true
     }
   ]
 }

@@ -14,14 +14,32 @@ useSeoMeta({ robots: 'noindex, nofollow' })
         >
           Aubade Counselling
         </NuxtLink>
-        <UButton
-          to="/blog"
-          color="neutral"
-          variant="ghost"
-          class="min-h-11"
-          label="View blog"
-          trailing-icon="i-lucide-external-link"
-        />
+        <div class="flex flex-wrap items-center gap-2">
+          <UButton
+            :to="`/${route.params.code}`"
+            color="neutral"
+            variant="ghost"
+            class="min-h-11"
+            icon="i-lucide-file-text"
+            label="Articles"
+          />
+          <UButton
+            :to="`/${route.params.code}/analytics`"
+            color="neutral"
+            variant="ghost"
+            class="min-h-11"
+            icon="i-lucide-chart-line"
+            label="Analytics"
+          />
+          <UButton
+            to="/blog"
+            color="neutral"
+            variant="ghost"
+            class="min-h-11"
+            label="View blog"
+            trailing-icon="i-lucide-external-link"
+          />
+        </div>
       </UContainer>
     </header>
     <main>

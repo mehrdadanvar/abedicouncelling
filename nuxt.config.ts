@@ -84,6 +84,8 @@ export default defineNuxtConfig({
           page.path = '/:code(\\d{5})'
         } else if (page.path === '/:code()/articles/:id()') {
           page.path = '/:code(\\d{5})/articles/:id()'
+        } else if (page.path === '/:code()/analytics') {
+          page.path = '/:code(\\d{5})/analytics'
         }
         page.children?.forEach(constrain)
       }

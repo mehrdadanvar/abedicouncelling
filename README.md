@@ -33,7 +33,7 @@ Nuxt prerenders the service pages and About page. It renders the homepage and bl
 - `/about`
 - `/blog` lists the six newest published articles. When more are available, pagination uses URLs such as `/blog?page=2`.
 - `/blog/<slug>` renders a published article
-- The editor dashboard lives at a hidden five-digit URL (`/<ADMIN_PATH_CODE>`)
+- The editor dashboard lives at a hidden five-digit URL (`/<ADMIN_PATH_CODE>`), including an analytics page at `/<ADMIN_PATH_CODE>/analytics`
 
 Old URLs from the WordPress site and renamed routes return 301 redirects from `app/data/redirects.ts`.
 
@@ -66,6 +66,38 @@ bun run db:import-articles
 The importer adds missing slugs as published articles and copies the six bundled source covers to `NUXT_CMS_UPLOADS_DIR` (`.data/uploads` locally). It updates draft and published copies that still point to those bundled covers and preserves other edits and replacement images. You can run it again to restore missing legacy cover files.
 
 Article covers are served from `/media/`. New uploads and migrated covers use the same storage directory, so publishing with a new image takes effect without a rebuild. The original bundled files remain available as the source for the import.
+
+## Analytics
+
+The public site counts first-party, aggregate traffic in one SQLite table (`analytics_events`) next to `articles`. No cookies, sessions, fingerprints, page text, destination URLs or form values are stored, and visitors who send Do Not Track or Global Privacy Control are never recorded.
+
+What is collected:
+
+- **Page views** — one row per successful view of a public page (`/`, `/about`, `/blog`, `/blog/<slug>` and the five service pages). Query strings, hashes and the hidden dashboard are excluded. Client-side navigation counts once per view; the first view of a document also records where the visitor came from.
+- **Referrers** — reduced to the external hostname only (`www.google.com`); same-site links and unusable values count as `direct`.
+- **Clicks** — clicks on links and buttons per source page, grouped into kinds: `internal`, `external`, `booking` (the Jane App booking CTA), `contact` (mailto/tel) and `button`. No destination URLs are stored.
+- **Visitor addresses** — the proxy-derived IP (`x-forwarded-for`) after validation. Full addresses are shown only as a totals list on the authenticated analytics page, never combined with the pages a visitor opened, and they are removed after **7 days**. Page, referrer and click counts stay for the full **30 days**.
+
+Requests are accepted only from a same-origin POST made by the site's own script (`Origin`/`Sec-Fetch-Site` plus an `x-analytics-request` header), with a bounded 2 KB payload, one event per request, an in-memory rate limit, and only known public paths. Retention runs during ingestion at most once an hour: rows older than 30 days are deleted and IP addresses older than 7 days are blanked. No extra dependencies are used.
+
+The dashboard at `/<ADMIN_PATH_CODE>/analytics` (protected like the rest of the dashboard, `noindex`/`no-store`) shows:
+
+- Totals and a daily traffic chart for the last 7 or 30 days
+- Views and clicks per page, including booking CTA clicks
+- Referrer hostname breakdown
+- Visitor addresses (recent 7 days, counts only)
+- An article SEO section listing published articles whose explicit SEO title, meta description or cover alt text are missing, with direct links to the editor, plus a link to the public sitemap. These checks only look at the explicit fields in the editor; published pages fall back to the title, excerpt and cover image, so an empty field is a refinement, not a broken page. No search ranking or impression data is shown.
+
+### Analytics database migration
+
+The table is added by an incremental migration (`0003_analytics-events.sql`). It does not touch the `articles` table and does not reinitialize the database. On the deployment volume (and locally, with `LIBSQL_URL` set to the existing database):
+
+```bash
+export LIBSQL_URL="file:/data/cms.sqlite"   # the existing volume, mounted and writable
+bun run db:migrate
+```
+
+Run it once before serving traffic after deploying this change; re-running is safe, migrations that are already applied are skipped.
 
 Save draft keeps edits and newly uploaded images private. Publish replaces the live article and updates the blog and sitemap. Choose an article slug before the first save. In the editor, type `/` to choose a block or use the toolbar to format text, edit links, and insert images. Published posts generate `BlogPosting` structured data from the article, author profile, and publication dates.
 

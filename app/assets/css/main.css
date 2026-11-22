@@ -1611,7 +1611,6 @@ button {
   width: min(1080px, calc(100% - 48px));
   margin-inline: auto;
   padding: 27px 0 36px;
-  background: #fff;
 }
 
 .post-body__inner {

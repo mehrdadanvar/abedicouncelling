@@ -33,7 +33,7 @@ Nuxt prerenders the service pages and About page. It renders the homepage and bl
 - `/about`
 - `/blog` lists the six newest published articles. When more are available, pagination uses URLs such as `/blog?page=2`.
 - `/blog/<slug>` renders a published article
-- `/admin` is the editor dashboard
+- The editor dashboard lives at a hidden five-digit URL (`/<ADMIN_PATH_CODE>`)
 
 Old URLs from the WordPress site and renamed routes return 301 redirects from `app/data/redirects.ts`.
 
@@ -71,7 +71,7 @@ Save draft keeps edits and newly uploaded images private. Publish replaces the l
 
 ### Local dashboard preview
 
-Use `LIBSQL_URL=file:.data/cms.sqlite` in your local `.env` so Nuxt opens the imported database. This workspace has a development login for `info@aubadecounselling.com`. Its generated password and hash are in `.data/local-editor-password.txt` and `.data/local-editor.hash`. Start the development app on loopback with `bun run dev --host localhost --port 3000` and sign in at `http://localhost:3000/admin`. Production uses Google sign-in.
+Use `LIBSQL_URL=file:.data/cms.sqlite` in your local `.env` so Nuxt opens the imported database. Local development keeps `ADMIN_EMAIL`, `ADMIN_PASS`, and `ADMIN_PATH_CODE` in `.env`. Start the development app on loopback with `bun run dev --host localhost --port 3000` and open `http://localhost:3000/<ADMIN_PATH_CODE>` with that code.
 
 ### Coolify deployment
 
@@ -79,16 +79,19 @@ Deploy as a Nuxt server application. Set the build command to `bun run build` an
 
 - `LIBSQL_URL=file:/data/cms.sqlite`
 - `NUXT_CMS_UPLOADS_DIR=/data/uploads`
-- `NUXT_CMS_EDITOR_EMAIL`, `NUXT_APP_SECRET`, `NUXT_OAUTH_GOOGLE_CLIENT_ID`, and `NUXT_OAUTH_GOOGLE_CLIENT_SECRET` as runtime variables
+- `ADMIN_EMAIL`, `ADMIN_PASS`, `ADMIN_PATH_CODE`, and `NUXT_APP_SECRET` as runtime variables
 
 From the project checkout with the volume mounted and both storage variables set, run `bun run db:migrate` before serving traffic for a new database or schema update. Run `bun run db:import-articles` to load the legacy articles and migrate their covers. Run the import on existing deployments once to update previously imported covers. The volume must be writable by the app. Back up the SQLite database and upload files to storage outside the VPS.
 
-### Google sign-in
+### Dashboard access
 
-1. Create or select Aubade's Google Cloud project. In [Google Auth Platform](https://console.cloud.google.com/auth/overview), complete Branding and use External under Audience if the editor uses a separate Google account. You can start in Testing and add her Google account under Test users.
-2. Under Clients, create an OAuth client of type **Web application**. Add `https://aubadecounselling.com/auth/google` under **Authorized redirect URIs**. For local development, also add `http://localhost:3000/auth/google`. Use the exact scheme, hostname, port, and path the browser will use.
-3. In Coolify's application environment, set `NUXT_OAUTH_GOOGLE_CLIENT_ID` and `NUXT_OAUTH_GOOGLE_CLIENT_SECRET` from the client. Set `NUXT_CMS_EDITOR_EMAIL` to the exact email she uses to sign in. Generate `NUXT_APP_SECRET` once with `openssl rand -base64 32` and keep the same value across deploys. For local development, put these settings in `.env` using `.env.example` as a guide.
-4. Redeploy with those runtime variables, then visit `https://aubadecounselling.com/admin` and select **Sign in with Google**. If Google reports `redirect_uri_mismatch`, compare its `redirect_uri` with the registered value. Set `NUXT_OAUTH_GOOGLE_REDIRECT_URL` to the registered HTTPS callback if the reverse proxy is causing Nuxt to infer the wrong URL.
+The editor dashboard is not linked anywhere on the public site. Choose its address once: a five-digit code in `ADMIN_PATH_CODE`, kept out of the repository, the sitemap, and robots.txt. The dashboard is then served at `https://aubadecounselling.com/<ADMIN_PATH_CODE>`, including its article editor under the same prefix.
+
+Sign in with the email from `ADMIN_EMAIL` and the password from `ADMIN_PASS`. After five failed attempts from one address, sign-in and code checks pause for 15 minutes. The old `/admin` address, wrong codes, and the removed `/auth/google` route all answer with a plain 404, and the dashboard sends `noindex` and `no-store` headers so it stays out of search results and caches.
+
+1. Generate the five-digit code with a password manager or Node.js (for example `node -e "console.log(String(crypto.randomInt(0, 100000)).padStart(5, '0'))"`) and `NUXT_APP_SECRET` once with `openssl rand -base64 32`.
+2. In Coolify's application environment, set `ADMIN_PATH_CODE`, `ADMIN_PASS`, `ADMIN_EMAIL` (the editor identity stored in the session), and `NUXT_APP_SECRET`. Keep the same values across deploys so sessions survive restarts.
+3. Redeploy, then open `https://aubadecounselling.com/<ADMIN_PATH_CODE>`, enter `ADMIN_PASS`, and manage articles.
 
 ## Styling
 

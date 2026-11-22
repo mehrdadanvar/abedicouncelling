@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { legacyRedirects } from './app/data/redirects'
+import type { NuxtPage } from 'nuxt/schema'
 
 const siteUrl = 'https://aubadecounselling.com'
 
@@ -32,7 +33,6 @@ export default defineNuxtConfig({
       maxAge: 60 * 60 * 24 * 7
     },
     cms: {
-      editorEmail: '',
       uploadsDir: '.data/uploads'
     }
   },
@@ -44,8 +44,6 @@ export default defineNuxtConfig({
     '/': { prerender: false },
     '/blog': { prerender: false },
     '/blog/**': { prerender: false },
-    '/admin': { prerender: false, headers: { 'x-robots-tag': 'noindex', 'cache-control': 'private, no-store' } },
-    '/admin/**': { prerender: false, headers: { 'x-robots-tag': 'noindex', 'cache-control': 'private, no-store' } },
     '/sitemap.xml': { prerender: false },
     '/sitemap_index.xml': { prerender: false }
   },
@@ -73,6 +71,23 @@ export default defineNuxtConfig({
       driver: 'libsql',
       applyMigrationsDuringBuild: false,
       applyMigrationsDuringDev: false
+    }
+  },
+
+  hooks: {
+    // The editor lives at a hidden five-digit path set by ADMIN_PATH_CODE.
+    // Constrain the [code] param to exactly five digits so any other address
+    // falls through to the regular 404 without rendering dashboard pages.
+    'pages:extend'(pages) {
+      const constrain = (page: NuxtPage) => {
+        if (page.path === '/:code()') {
+          page.path = '/:code(\\d{5})'
+        } else if (page.path === '/:code()/articles/:id()') {
+          page.path = '/:code(\\d{5})/articles/:id()'
+        }
+        page.children?.forEach(constrain)
+      }
+      pages.forEach(constrain)
     }
   },
 
@@ -130,7 +145,6 @@ export default defineNuxtConfig({
 
   sitemap: {
     discoverImages: false,
-    exclude: ['/admin', '/admin/**'],
     sources: ['/api/__sitemap__/articles'],
     cacheMaxAgeSeconds: 0
   },

@@ -1,14 +1,14 @@
-import { createError, defineEventHandler, useRuntimeConfig } from 'nuxt/server'
+import { createError, defineEventHandler } from 'nuxt/server'
 import type { RequestEvent } from 'nuxt/server'
 
-export function isEditorEmail(email?: string) {
-  const allowed = useRuntimeConfig().cms.editorEmail.trim().toLowerCase()
+export function isAdminEmail(email?: string) {
+  const allowed = adminEnv().email.toLowerCase()
   return Boolean(allowed && allowed === email?.trim().toLowerCase())
 }
 
 async function requireEditor(event: RequestEvent) {
   const session = await requireUserSession(event)
-  if (!isEditorEmail(session.user.email)) {
+  if (!isAdminEmail(session.user.email)) {
     throw createError({ status: 403, statusText: 'This account does not have editor access.' })
   }
 }

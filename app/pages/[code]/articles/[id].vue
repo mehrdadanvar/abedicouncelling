@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import type { ArticleContent, EditorArticle } from '#shared/types/article'
 
-definePageMeta({ layout: 'admin', middleware: 'editor', key: route => route.path })
+definePageMeta({ layout: 'admin', middleware: 'admin', robots: 'noindex, nofollow', key: route => route.path })
 useSeoMeta({ title: 'Edit article' })
 
 const route = useRoute()
+const code = computed(() => String(route.params.code))
 const isNew = route.params.id === 'new'
 const { data: article, error: loadError } = isNew ? { data: ref<EditorArticle>(), error: ref() } : await useFetch<EditorArticle>(`/api/admin/articles/${encodeURIComponent(String(route.params.id))}`)
 
 if (loadError.value?.statusCode === 401 || loadError.value?.statusCode === 403) {
-  await navigateTo('/admin')
+  await navigateTo(`/${code.value}`)
 }
 
 const content = reactive<ArticleContent>({
@@ -119,7 +120,7 @@ async function save(publish: boolean) {
     savedContent.value = JSON.stringify(content)
     savedSlug.value = slug.value
     if (isNew) {
-      await navigateTo({ path: `/admin/articles/${result.id}`, query: { saved: saving.value } }, { replace: true })
+      await navigateTo({ path: `/${code.value}/articles/${result.id}`, query: { saved: saving.value } }, { replace: true })
     }
     feedback.value = publish ? 'Article published.' : 'Draft saved.'
   } catch (error) {
@@ -133,7 +134,7 @@ async function save(publish: boolean) {
 <template>
   <div>
     <UButton
-      to="/admin"
+      :to="`/${code}`"
       color="neutral"
       variant="ghost"
       icon="i-lucide-arrow-left"

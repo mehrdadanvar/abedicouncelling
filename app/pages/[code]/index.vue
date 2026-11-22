@@ -1,10 +1,10 @@
 <script setup lang="ts">
-definePageMeta({ layout: 'admin' })
+definePageMeta({ layout: 'admin', middleware: 'admin', robots: 'noindex, nofollow' })
 useSeoMeta({ title: 'Articles' })
 
 const route = useRoute()
-const localSignIn = import.meta.dev
-const email = ref('info@aubadecounselling.com')
+const code = computed(() => String(route.params.code))
+const email = ref('')
 const password = ref('')
 const canSignIn = ref(false)
 const signingIn = ref(false)
@@ -25,21 +25,21 @@ const { data: articles, status, error, refresh } = await useFetch('/api/admin/ar
 async function signOut() {
   await clear()
   clearNuxtData()
-  await navigateTo('/admin', { external: true })
+  await navigateTo(`/${code.value}`, { external: true })
 }
 
-async function signInLocally() {
+async function signIn() {
   signingIn.value = true
   loginError.value = ''
   try {
     await $fetch('/api/auth/local', {
       method: 'POST',
       headers: { 'x-cms-request': '1' },
-      body: { email: email.value, password: password.value }
+      body: { code: code.value, email: email.value, password: password.value }
     })
-    await navigateTo('/admin', { external: true })
+    await navigateTo(`/${code.value}`, { external: true })
   } catch {
-    loginError.value = 'Check the local email and password, then try again.'
+    loginError.value = 'Check your email and password, then try again.'
   } finally {
     signingIn.value = false
     password.value = ''
@@ -55,21 +55,10 @@ async function signInLocally() {
     <h1 class="mb-3 text-2xl font-semibold text-highlighted">
       Sign in to manage articles
     </h1>
-    <p class="mb-6 text-muted">
-      {{ localSignIn ? 'Use your local preview account to open the article dashboard.' : 'Use your Google account to open the article dashboard.' }}
-    </p>
-    <UAlert
-      v-if="route.query['sign-in']"
-      class="mb-5"
-      color="error"
-      variant="soft"
-      :title="route.query['sign-in'] === 'denied' ? 'This Google account does not have access.' : 'Google sign-in could not finish. Try again.'"
-    />
     <form
-      v-if="localSignIn"
       class="space-y-4"
       method="post"
-      @submit.prevent="signInLocally"
+      @submit.prevent="signIn"
     >
       <UFormField
         label="Email"
@@ -110,14 +99,6 @@ async function signInLocally() {
         :loading="signingIn"
       />
     </form>
-    <UButton
-      href="/auth/google"
-      external
-      icon="i-simple-icons-google"
-      label="Sign in with Google"
-      :variant="localSignIn ? 'ghost' : 'solid'"
-      :class="{ 'mt-4': localSignIn }"
-    />
   </section>
 
   <section v-else>
@@ -133,7 +114,7 @@ async function signInLocally() {
           @click="signOut"
         />
         <UButton
-          to="/admin/articles/new"
+          :to="`/${code}/articles/new`"
           icon="i-lucide-plus"
           label="New article"
         />
@@ -175,7 +156,7 @@ async function signInLocally() {
         class="flex flex-wrap items-center justify-between gap-x-5 gap-y-2 px-4 py-3 sm:px-5"
       >
         <NuxtLink
-          :to="`/admin/articles/${item.id}`"
+          :to="`/${code}/articles/${item.id}`"
           class="py-2 font-medium text-highlighted hover:underline"
         >
           {{ item.title }}

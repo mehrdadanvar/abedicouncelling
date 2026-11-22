@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const route = useRoute()
+
 useSeoMeta({ robots: 'noindex, nofollow' })
 </script>
 
@@ -7,7 +9,7 @@ useSeoMeta({ robots: 'noindex, nofollow' })
     <header class="border-b border-default bg-default">
       <UContainer class="flex min-h-16 flex-wrap items-center justify-between gap-x-6 gap-y-2 py-2">
         <NuxtLink
-          to="/admin"
+          :to="`/${route.params.code}`"
           class="py-2 font-semibold text-highlighted"
         >
           Aubade Counselling

@@ -1,30 +1,36 @@
-import { readFile } from 'node:fs/promises'
-import { createError, defineEventHandler, getRequestURL } from 'nuxt/server'
 import { z } from 'zod'
+import { createError, defineEventHandler } from 'nuxt/server'
 
-const editorEmail = 'info@aubadecounselling.com'
-const credentials = z.object({ email: z.string().trim().toLowerCase(), password: z.string().max(256) })
+const credentials = z.object({
+  code: z.string().regex(/^\d{5}$/),
+  email: z.string().trim().min(1).max(254),
+  password: z.string().min(1).max(256)
+})
 
 export default defineEventHandler(async (event) => {
-  if (!import.meta.dev || !['localhost', '127.0.0.1', '[::1]'].includes(getRequestURL(event).hostname)) {
-    throw createError({ status: 404, statusText: 'Not found' })
-  }
-
   event.res.headers.set('Cache-Control', 'private, no-store')
   if (event.req.headers.get('x-cms-request') !== '1') {
     throw createError({ status: 403, statusText: 'Invalid editor request' })
   }
 
-  const hash = await readFile('.data/local-editor.hash', 'utf8').catch((error: NodeJS.ErrnoException) => {
-    if (error.code === 'ENOENT') return ''
-    throw error
-  })
-  const body = await readBoundedBody(event, 4096)
-  const input = credentials.safeParse(await body.json().catch(() => null))
-  if (!hash || !input.success || input.data.email !== editorEmail || !isEditorEmail(editorEmail) || !await verifyPassword(hash.trim(), input.data.password)) {
-    throw createError({ status: 401, statusText: 'Check the local email and password.' })
+  const admin = adminEnv()
+  if (!admin.email || !admin.password || !admin.pathCode) {
+    throw createError({ status: 500, statusText: 'Sign-in is not configured.' })
   }
 
-  await replaceUserSession(event, { user: { email: editorEmail } })
+  const ip = clientIP(event)
+  if (isThrottled('sign-in', ip)) {
+    throw createError({ status: 429, statusText: 'Too many failed attempts. Try again later.' })
+  }
+
+  const body = await readBoundedBody(event, 4096)
+  const input = credentials.safeParse(await body.json().catch(() => null))
+  if (!input.success || !safeEqual(input.data.code, admin.pathCode) || !isAdminEmail(input.data.email) || !safeEqual(input.data.password, admin.password)) {
+    recordFailure('sign-in', ip)
+    throw createError({ status: 401, statusText: 'Invalid sign-in details.' })
+  }
+
+  clearFailures('sign-in', ip)
+  await replaceUserSession(event, { user: { email: admin.email } })
   return { signedIn: true }
 })

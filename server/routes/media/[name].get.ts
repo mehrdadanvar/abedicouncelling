@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
 
   if (!published) {
     const { user } = await getUserSession(event)
-    if (!isEditorEmail(user?.email)) {
+    if (!isAdminEmail(user?.email)) {
       throw createError({ status: 404, statusText: 'Image not found' })
     }
   }

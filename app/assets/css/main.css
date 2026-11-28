@@ -2214,6 +2214,7 @@ button {
   .mobile-header__row {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
     width: calc(100% - 78px);
     margin: 20px auto 0;
@@ -2222,18 +2223,15 @@ button {
   .mobile-header__bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex: 1 1 auto;
-    min-width: 0;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 40px;
     height: 32px;
-    padding: 0 12px;
+    padding: 0;
     border: 0;
+    border-radius: 6px;
     background: rgba(0, 0, 0, 0.08);
     color: var(--cream);
-    font-family: var(--font-open);
-    font-size: 16px;
-    font-weight: 600;
-    text-align: left;
   }
 
   .mobile-header__cta {
@@ -2943,15 +2941,6 @@ button {
 
   .mobile-menu a.is-active {
     background: transparent;
-  }
-
-  .mobile-header__bar.is-open .mobile-header__hamburger span:nth-child(1),
-  .mobile-header__bar.is-open .mobile-header__hamburger span:nth-child(3) {
-    transform: none;
-  }
-
-  .mobile-header__bar.is-open .mobile-header__hamburger span:nth-child(2) {
-    opacity: 1;
   }
 
   .about-hero__copy {

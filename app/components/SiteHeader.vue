@@ -132,11 +132,11 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
           type="button"
           class="mobile-header__bar"
           :class="{ 'is-open': mobileOpen }"
+          :aria-label="mobileOpen ? 'Close menu' : 'Open menu'"
           :aria-expanded="mobileOpen"
           aria-controls="mobile-menu"
           @click="mobileOpen = !mobileOpen"
         >
-          <span>Select Page</span>
           <span
             class="mobile-header__hamburger"
             aria-hidden="true"
